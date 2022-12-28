@@ -45,8 +45,8 @@ namespace ApiConcessionaria.Controllers
         {
             _categoriaRepository.InsereCategoria(categoria);
             return await _categoriaRepository.SaveChangesAsync()
-            ? Ok("Categoria inserida com sucesso")
-            : BadRequest("Erro na inserção da categoria");
+            ? Ok("Categoria inserida com sucesso!")
+            : BadRequest("Erro na inserção da categoria.");
         }
 
         [HttpPut("{Id}")]
@@ -68,10 +68,10 @@ namespace ApiConcessionaria.Controllers
         [HttpDelete("{Id}")]
         public async Task<IActionResult> DeleteCategoria(int Id)
         {
-            var categoria = _categoriaRepository.ConsultaCategoriaPorId(Id);
+            var categoria = await _categoriaRepository.ConsultaCategoriaPorId(Id);
             if (categoria == null) return NotFound("Não foi possível encontrar a categoria.");
 
-            _categoriaRepository.RemoveCategoria(Id);
+            _categoriaRepository.RemoveCategoria(categoria);
             return await _categoriaRepository.SaveChangesAsync()
             ? Ok("Categoria removida com sucesso")
             : BadRequest("Não foi possível remover a categoria");

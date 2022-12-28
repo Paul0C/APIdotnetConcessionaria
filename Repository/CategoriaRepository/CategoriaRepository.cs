@@ -38,9 +38,8 @@ namespace ApiConcessionaria.Repository.CategoriaRepository
             return await _concessionariaContext.Categorias.ToListAsync();
         }
 
-        public void RemoveCategoria(int Id)
+        public void RemoveCategoria(Categoria categoria)
         {
-            var categoria = _concessionariaContext.Categorias.FirstOrDefault(x => x.Id == Id);
             _concessionariaContext.Categorias.Remove(categoria);
         }
 

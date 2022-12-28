@@ -1,5 +1,6 @@
 using ApiConcessionaria.Data;
 using ApiConcessionaria.Repository.CategoriaRepository;
+using ApiConcessionaria.Repository.MarcaRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,7 @@ builder.Services.AddDbContext<ConcessionariaContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+builder.Services.AddScoped<IMarcaRepository, MarcaRepository>();
 
 var app = builder.Build();
 

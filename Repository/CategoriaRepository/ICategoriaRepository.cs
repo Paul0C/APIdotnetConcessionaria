@@ -16,7 +16,7 @@ namespace ApiConcessionaria.Repository.CategoriaRepository
 
         void AtualizaCategoria(Categoria categoria);
 
-        void RemoveCategoria(int Id);
+        void RemoveCategoria(Categoria categoria);
 
         Task<bool> SaveChangesAsync();
     }
