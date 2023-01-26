@@ -13,6 +13,8 @@ namespace ApiConcessionaria.Repository.CarroRepository
 
         Task<IEnumerable<CarroDto>> ListarCarros();
 
+        Task<IEnumerable<CarroDto>> ListarCarrosPorCategoria(int Id);
+
         Task<CarroDetalhesDto> ConsultarCarroDetalhesPorId(int Id);
 
         Task<Carro> ConsultarCarroPorId(int Id);

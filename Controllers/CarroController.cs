@@ -33,11 +33,25 @@ namespace ApiConcessionaria.Controllers
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetCarrosPorId(int Id)
         {
+            if (Id <= 0) return BadRequest("Id inválido.");
+
             var carro = await _carroRepository.ConsultarCarroDetalhesPorId(Id);
 
             return carro != null
             ? Ok(carro)
             : NotFound("Não foi possível encontrar o carro");
+        }
+
+        [HttpGet("{IdCategoria}/CarrosPorCategoria")]
+        public async Task<IActionResult> GetCarrosPorCategoria(int IdCategoria)
+        {
+            if (IdCategoria <= 0) return BadRequest("Id inválido.");
+
+            var carro = await _carroRepository.ListarCarrosPorCategoria(IdCategoria);
+
+            return carro.Any()
+            ? Ok(carro)
+            : NotFound("Essa categoria está sem carros no momento.");
         }
 
         [HttpPost]

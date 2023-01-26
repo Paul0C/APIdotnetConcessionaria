@@ -70,6 +70,17 @@ namespace ApiConcessionaria.Repository.CarroRepository
             }).ToListAsync();
         }
 
+        public async Task<IEnumerable<CarroDto>> ListarCarrosPorCategoria(int Id)
+        {
+            return await _concessionariaContext.Carros.Where(x => x.CategoriaId == Id).Select(x => new CarroDto
+            {
+                Id = x.Id,
+                Marca = x.Marca.Nome,
+                Nome = x.Nome
+            })
+            .ToListAsync();
+        }
+
         public void RemoveCarro(Carro carro)
         {
             _concessionariaContext.Carros.Remove(carro);
