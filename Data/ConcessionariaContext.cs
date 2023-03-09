@@ -9,7 +9,7 @@ namespace ApiConcessionaria.Data
 {
     public class ConcessionariaContext : DbContext
     {
-        public ConcessionariaContext(DbContextOptions options) : base(options)
+        public ConcessionariaContext(DbContextOptions<ConcessionariaContext> options) : base(options)
         {
         }
 

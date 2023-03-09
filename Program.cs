@@ -5,6 +5,13 @@ using ApiConcessionaria.Repository.CorRepository;
 using ApiConcessionaria.Repository.CarroRepository;
 using ApiConcessionaria.Repository.FiltroRepository;
 using Microsoft.EntityFrameworkCore;
+using ApiConcessionaria.Services;
+using ApiConcessionaria.Configurations;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,11 +26,23 @@ string connectionString = builder.Configuration.GetConnectionString("Concessiona
 builder.Services.AddDbContext<ConcessionariaContext>(options =>
     options.UseSqlServer(connectionString));
 
+builder.Services.AddDbContext<IdentityDataContext>(options =>
+    options.UseSqlServer(connectionString));
+
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddScoped<IMarcaRepository, MarcaRepository>();
 builder.Services.AddScoped<ICorRepository, CorRepository>();
 builder.Services.AddScoped<ICarroRepository, CarroRepository>();
 builder.Services.AddScoped<IFiltroRepository, FiltroRepository>();
+builder.Services.AddScoped<IIdentityService, IdentityService>();
+
+builder.Services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<IdentityDataContext>()
+                .AddDefaultTokenProviders();
+
+builder.Services.AddAuthentication(builder.Configuration);
+builder.Services.AddSwagger();
 
 
 var app = builder.Build();
@@ -36,6 +55,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

@@ -7,6 +7,7 @@ using ApiConcessionaria.Models.Entities;
 using ApiConcessionaria.Repository.CarroRepository;
 using ApiConcessionaria.Repository.MarcaRepository;
 using ApiConcessionaria.Models.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ApiConcessionaria.Controllers
 {
@@ -30,6 +31,7 @@ namespace ApiConcessionaria.Controllers
             : NotFound("Não foi possível listar os carros");
         }
 
+        [Authorize]
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetCarrosPorId(int Id)
         {
